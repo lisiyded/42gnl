@@ -6,7 +6,7 @@
 /*   By: spowers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 23:28:47 by spowers           #+#    #+#             */
-/*   Updated: 2020/07/17 09:40:13 by spowers          ###   ########.fr       */
+/*   Updated: 2020/07/17 23:19:59 by spowers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		get_line(char *str, char **line, int i)
 	int		len;
 
 	*line = ft_substr(str, 0, i);
+	if (!line)
+	return(-1);
 	++i;
 	len = ft_strlen(str + i) + 1;
 	ft_memcpy(str, str + i, len);
@@ -50,33 +52,20 @@ int		get_next_line(int fd, char **line)
 	{
 		buff[bwr] = '\0';
 		str = ft_join(str, buff);
+		if (!str)
+			return (-1);
 		if (((i = check_index(str, '\n')) != -1))
 			return (get_line(str, line, i));
 	}
 	if (str)
 	{
 		*line = ft_strdup(str);
+		if (!str)
+			return(-1);
 		free(str);
 		str = NULL;
 		return (bwr);
 	}
 	*line = ft_strdup("");
 	return (bwr);
-}
-int main (void)
-{
-char *line;
-int fd;
-int res;
-
-fd = open("text.txt", O_RDONLY);
-//fd = 42;
-while ((res=get_next_line(fd, &line)))
-{
-printf(" res = %d, line is %s\n", res, line);
-free(line);
-}
-printf("res = %d, line is %s\n", res, line);
-free(line);
-return(0);
 }
