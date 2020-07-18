@@ -6,7 +6,7 @@
 /*   By: spowers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 23:28:47 by spowers           #+#    #+#             */
-/*   Updated: 2020/07/18 17:04:25 by spowers          ###   ########.fr       */
+/*   Updated: 2020/07/18 18:08:34 by spowers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		get_next_line(int fd, char **line)
 	static char		*str;
 	int				bwr;
 	int				i;
-
+	
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, buff, 0) < 0)
 		return (-1);
 	if (str && (((i = check_index(str, '\n')) != -1)))
@@ -76,7 +76,6 @@ int		get_next_line(int fd, char **line)
 		if (((i = check_index(str, '\n')) != -1))
 			return (get_line(str, line, i));
 	}
-	if (str)
-		return (set_line(str, line, bwr));
-	return (bwr);
+	set_line(str, line, bwr);
+	return (0);
 }
