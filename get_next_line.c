@@ -6,11 +6,18 @@
 /*   By: spowers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 23:28:47 by spowers           #+#    #+#             */
-/*   Updated: 2020/07/17 23:19:59 by spowers          ###   ########.fr       */
+/*   Updated: 2020/07/18 17:04:25 by spowers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void			ft_free(char **str)
+{
+	if (str != NULL && *str != NULL)
+		free(*str);
+	*str = NULL;
+}
 
 int		check_index(const char *s, int c)
 {
@@ -28,19 +35,32 @@ int		get_line(char *str, char **line, int i)
 {
 	int		len;
 
-	*line = ft_substr(str, 0, i);
-	if (!line)
-	return(-1);
+	if (!(*line = ft_substr(str, 0, i)))
+	return (-1);
 	++i;
 	len = ft_strlen(str + i) + 1;
 	ft_memcpy(str, str + i, len);
 	return (1);
 }
 
+int		set_line(char *str, char **line, int bwr)
+{
+	if (str)
+        {
+               if (!(*line = ft_strdup(str)))
+                return(-1);
+                ft_free(&str);
+                return (bwr);
+        }
+        if (!(*line = ft_strdup("")))
+		return(-1);
+	return (bwr);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
-	static char		*str = NULL;
+	static char		*str;
 	int				bwr;
 	int				i;
 
@@ -51,21 +71,12 @@ int		get_next_line(int fd, char **line)
 	while (((bwr = read(fd, buff, BUFFER_SIZE)) > 0))
 	{
 		buff[bwr] = '\0';
-		str = ft_join(str, buff);
-		if (!str)
+		if (!(str = ft_join(str, buff)))
 			return (-1);
 		if (((i = check_index(str, '\n')) != -1))
 			return (get_line(str, line, i));
 	}
 	if (str)
-	{
-		*line = ft_strdup(str);
-		if (!str)
-			return(-1);
-		free(str);
-		str = NULL;
-		return (bwr);
-	}
-	*line = ft_strdup("");
+		return (set_line(str, line, bwr));
 	return (bwr);
 }
