@@ -6,7 +6,7 @@
 /*   By: spowers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 23:28:47 by spowers           #+#    #+#             */
-/*   Updated: 2020/07/18 21:31:18 by spowers          ###   ########.fr       */
+/*   Updated: 2020/07/18 23:40:15 by spowers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void		ft_free(char **str)
 {
 	if (str != NULL && *str != NULL)
+	{
 		free(*str);
-	*str = NULL;
+		*str = NULL;
+	}
 }
 
 int			check_index(const char *s, int c)
