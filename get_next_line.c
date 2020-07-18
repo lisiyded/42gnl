@@ -19,7 +19,7 @@ void		ft_free(char **str)
 	*str = NULL;
 }
 
-int		check_index(const char *s, int c)
+int			check_index(const char *s, int c)
 {
 	int		i;
 
@@ -31,7 +31,7 @@ int		check_index(const char *s, int c)
 	return (i);
 }
 
-int		get_line(char *str, char **line, int i)
+int			get_line(char *str, char **line, int i)
 {
 	int		len;
 
@@ -43,7 +43,7 @@ int		get_line(char *str, char **line, int i)
 	return (1);
 }
 
-int		set_line(char **str, char **line, int bwr)
+int			set_line(char **str, char **line, int bwr)
 {
 	if (*str)
 	{
@@ -57,12 +57,12 @@ int		set_line(char **str, char **line, int bwr)
 	return (bwr);
 }
 
-int		get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	char		buff[BUFFER_SIZE + 1];
 	static char	*str;
-	int		bwr;
-	int		i;
+	int			bwr;
+	int			i;
 
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, buff, 0) < 0)
 		return (-1);
