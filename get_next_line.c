@@ -6,7 +6,7 @@
 /*   By: spowers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 23:28:47 by spowers           #+#    #+#             */
-/*   Updated: 2020/07/18 18:08:34 by spowers          ###   ########.fr       */
+/*   Updated: 2020/07/18 18:31:59 by spowers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,5 @@ int		get_next_line(int fd, char **line)
 		if (((i = check_index(str, '\n')) != -1))
 			return (get_line(str, line, i));
 	}
-	set_line(str, line, bwr);
-	return (0);
+	return (set_line(str, line, bwr));
 }
